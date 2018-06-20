@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'/>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="./reset.css" rel="stylesheet">
+<style>
+  .box-test {
+    width: 100px;
+    height: 100px;
+    background-color: gold;
+  }
+
+  .box-color {
+    background-color: blue;
+  }
+</style>
+</head>
+<body>
+  <h1>class add / class remove</h1>
+  
+  <div class="box-test">test box1</div>
+  <button type="button" class="btn-add">class 추가</button>
+  <button type="button" class="btn-remove">class 삭제</button>
+
+  <script>
+// class 추가, 삭제
+var classAddRemove = function (eleSelector, className, classAction) {
+  var classAction = classAction || false,
+      get_class = eleSelector.getAttribute('class'),
+      class_arr = get_class.split(' '),
+      class_set = null,
+      class_check = (class_arr.indexOf(className) === -1) ? false : true ;
+
+  // class 추가
+  function addFunc () {
+    class_arr = class_arr.concat(className);
+  };
+
+  // class 삭제
+  function removeFunc () {
+    for(var i=0, max=class_arr.length; i< max; i++) {
+      if( class_arr[i] === className ) {
+        class_arr.splice(i, 1);
+      }
+    }
+  };
+  
+  // classAction 매개변수 값에 따라 달라짐
+  if ( !classAction ) {
+    // classAction에 추가,삭제 여부를 넣지 않은 경우 toggle
+    if( !class_check ) {
+      addFunc();
+    } else {
+      removeFunc();
+    }
+  } else {
+    if ( classAction === 'add' && !class_check ) {
+      // classAction 가 add 인 경우 class 추가
+      addFunc();
+    } else if ( classAction === 'remove' && class_check ) {
+      // classAction 가 remove 인 경우 class 삭제
+      removeFunc();
+    }
+  }
+
+  class_set = class_arr.join(' ');
+  class_set = class_set.replace('/,/g', '');
+  eleSelector.setAttribute('class', class_set);
+}
+
+var header_ele = document.querySelector('.box-test');
+//
+document.querySelector('.btn-add').onclick = function(){
+  classAddRemove(header_ele, 'box-color', 'add');
+};
+
+//
+document.querySelector('.btn-remove').addEventListener('click', function(){
+  classAddRemove(header_ele, 'box-color', 'remove');
+});
+
+/*
+document.querySelector('.btn-add').addEventListener('click', function(){
+  console.log('click');
+});
+
+
+
+if( element.click ){
+  element.click();
+
+} else if ( document.createEvent ) {
+  var eventObj = document.createEvent( 'MouseEvents' );
+  eventObj.initEvent('click', true, true);
+  element.dispatchEvent(eventObj);
+}
+
+initEvent () 메소드
+  이벤트 객체의 새로운 속성을 초기화
+
+  event.initEvent(eventType, canBubble, cancelable);
+    eventType : 문자열 값입니다. 이벤트 유형입니다.
+    canBubble : 이벤트 버블 링됩니다.
+    cancelable:	이벤트를 취소하려면 preventDefault () 메서드를 사용할 수 있습니다.
+
+
+*/
+
+
+  </script>
+</body>
+</html>
