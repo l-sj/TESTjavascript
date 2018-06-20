@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'/>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="./reset.css" rel="stylesheet">
+<style>
+  .wrap-tab {width: 400px; margin: 0 auto;}
+  .tab-menu { font-size: 0; }
+  .item { display: inline-block; width: 25%; font-size: 14px; }
+  .link { display: block; width: 100%; padding: 10px; border: 1px solid #ccc; text-align: center;}
+  
+
+  .wrap-tab .item {
+    background: #ff0000;
+  }
+  .wrap-tab[data-active-index="0"] .item[data-index="0"],
+  .wrap-tab[data-active-index="1"] .item[data-index="1"],
+  .wrap-tab[data-active-index="2"] .item[data-index="2"],
+  .wrap-tab[data-active-index="3"] .item[data-index="3"] { 
+    background-color: gold;
+  }
+  .wrap-tab[data-active-index] .tab-content { display: none; }
+  .wrap-tab[data-active-index="0"] .tab-content[data-index="0"],
+  .wrap-tab[data-active-index="1"] .tab-content[data-index="1"],
+  .wrap-tab[data-active-index="2"] .tab-content[data-index="2"],
+  .wrap-tab[data-active-index="3"] .tab-content[data-index="3"] { 
+    display: block; 
+  }
+</style>
+</head>
+<body>
+  <h1>TAB</h1>
+  <div class="wrap-tab tab-test1">
+    <ul class="tab-menu">
+      <li class="item"><a href="#contentID01" class="link">tab menu1</a></li>
+      <li class="item"><a href="#contentID02" class="link">tab menu2</a></li>
+      <li class="item"><a href="#contentID03" class="link">tab menu3</a></li>
+      <li class="item"><a href="#contentID04" class="link">tab menu4</a></li>
+    </ul>
+    <div class="wrap-content">
+      <div class="tab-content" id="contentID01">
+        <h2>content01 menu</h2>
+        <p>content01</p>
+      </div>
+      <div class="tab-content" id="contentID02">
+        <h2>content02 menu</h2>
+        <p>content02</p>
+      </div>
+      <div class="tab-content" id="contentID03">
+        <h2>content03 menu</h2>
+        <p>content03</p>
+      </div>
+      <div class="tab-content" id="contentID04">
+        <h2>content04 menu</h2>
+        <p>content04</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap-tab tab-test2">
+    <ul class="tab-menu">
+      <li class="item"><a href="#contentID01" class="link">tab menu1</a></li>
+      <li class="item"><a href="#contentID02" class="link">tab menu2</a></li>
+      <li class="item"><a href="#contentID03" class="link">tab menu3</a></li>
+      <li class="item"><a href="#contentID04" class="link">tab menu4</a></li>
+    </ul>
+    <div class="wrap-content">
+      <div class="tab-content" id="contentID01">
+        <h2>content01 menu</h2>
+        <p>content01</p>
+      </div>
+      <div class="tab-content" id="contentID02">
+        <h2>content02 menu</h2>
+        <p>content02</p>
+      </div>
+      <div class="tab-content" id="contentID03">
+        <h2>content03 menu</h2>
+        <p>content03</p>
+      </div>
+      <div class="tab-content" id="contentID04">
+        <h2>content04 menu</h2>
+        <p>content04</p>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+var Tab = function ( tabClass, activeIndex ) {
+
+  if ( typeof tabClass === 'string' ) {
+    var wrap_tab = document.querySelectorAll(tabClass),
+        max = wrap_tab.length;
+
+    if ( wrap_tab instanceof Object ) {
+      wrap_tab = Array.prototype.slice.call(wrap_tab);
+    }
+  };
+
+  // instanceof 연산자를 통해서 this(tab01 인스턴스)가 Tab 생성자 함수를 사용하여 생성되었는지 확인
+  if ( !(this instanceof Tab) ) {
+    return new Tab(wrap_tab, activeIndex );
+  };
+
+  //
+  if ( max === 0 && (typeof tabClass != 'object') ) {
+    return false;
+  } else if ( max > 0 ) {
+    for( var k=0; k < max; k++ ){
+      new Tab(wrap_tab[k], activeIndex );
+    }
+    /*
+    Object.keys(wrap_tab).map(function(objKey, index){
+      new Tab( wrap_tab[objKey], activeIndex );
+    });
+    */
+    return;
+  };
+
+  var that = this;
+  this.active_index = activeIndex || 0;
+  this.prev_index = this.active_index;
+  this.new_wrap_tab = tabClass;
+  this.tab_menu = this.new_wrap_tab.querySelector('.tab-menu');
+  this.items = this.tab_menu.querySelectorAll('.item');
+  this.contents = this.new_wrap_tab.querySelectorAll('.tab-content');
+  this.itemMax = this.items.length;
+
+  // 초기 data attribute 설정
+  that.initSet();
+  
+  // 메뉴 클릭시 이벤트
+  this.tab_menu.onclick = function(e){
+    var event = event || window.event;
+    var target = event.target || event.srcElement;
+    that.menuClick(event, target);
+  };
+
+};
+Tab.prototype = {
+  constructor: Tab,
+  initSet: function(){
+    this.new_wrap_tab.setAttribute('data-active-index', this.active_index);
+    for ( var i=0 ; i< this.itemMax; i++ ) {
+      this.items[i].setAttribute('data-index', i);
+      this.contents[i].setAttribute('data-index', i);
+    };
+  },
+  menuClick: function(e, target){
+    var ele = target;
+    if ( ele.className === 'link' ) {
+      //e.preventDefault();
+      //e.preventDafault ? e.preventDefault() : e.returnValue = false;
+
+      var current_index = ele.parentElement.getAttribute('data-index');
+      if ( current_index != this.prev_index ) {
+        this.new_wrap_tab.setAttribute('data-active-index', current_index);
+        this.prev_index = current_index;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+}
+// var tab01 = new Tab('wrap-tab', 2);
+var tab01 = new Tab('.tab-test1', 1);
+var tab02 = new Tab('.tab-test2', 2);
+
+
+</script>
+</body>
+</html>

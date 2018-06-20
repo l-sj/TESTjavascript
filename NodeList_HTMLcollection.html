@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'/>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="./reset.css" rel="stylesheet">
+<style>
+
+</style>
+</head>
+<body>
+
+<div class="wrap-tab tab-test1">01</div>
+<div class="wrap-tab tab-test2">02</div>
+<script>
+/* 
+querySelectorAll <- IE8
+getElementsByClassName <- IE9
+*/
+var query_ele = document.querySelectorAll('.wrap-tab');
+console.log( query_ele );
+/*
+NodeList(2) [div.wrap-tab.tab-test1, div.wrap-tab.tab-test2]
+  {
+    ▶︎︎︎ 0: div.wrap-tab.tab-test1,
+    ▶︎︎︎ 1: div.wrap-tab.tab-test2,
+      lengt: 2,
+    ▼ __proto__: NodeList
+      {
+        ▶︎︎︎ entries: f entries(),
+        ▶︎︎︎ forEach: f forEach(),
+        ▶︎︎︎ item: f item(),
+        ▶︎︎︎ keys: f keys(),
+          length: (...),
+        ▶︎︎︎ values: f values(),
+        ▶︎︎︎ constructor: f NodeList(),
+        ▶︎︎︎ Symbol(Symbol.iterator): f values(),
+          Symbol(Symbol.toStringTag): "NOdeList",
+        ▶︎︎︎ get length: f (),
+        ▶︎︎︎ __proto__: Object
+      }
+  }
+*/
+
+//
+for ( var i in query_ele) {
+  console.log( i );
+  /*
+    i -> key
+    query_ele[i] -> value
+
+  출력 결과
+    0
+    1
+    length
+    item
+    entries
+    forEach
+    keys
+    values
+  */
+}
+
+// NodeList의 컨텐츠를 Array의 메소드를 통해 다루는 것이 더 쉬울때도 있다. NodeList 객체를 Array로 변환하는 기법.
+console.log( Array.prototype.slice.call(query_ele) );
+/*
+(2)[div.wrap-tab.tab-test1, div.wrap-tab.tab-test2]
+  {
+    0: div.wrap-tab.tab-test1,
+    1: div.wrap-tab.tab-test2,
+    length: 2,
+    __proto__: Array(0)
+      {
+        ▶︎︎︎ concat: f concat(),
+        ▶︎︎︎ constructor: f Array(),
+        ▶︎︎︎ copyWithin: f copyWithin(),
+        ▶︎︎︎ entries: f entries(),
+        ▶︎︎︎ every: f eveny(),
+        ▶︎︎︎ fill: f fill(),
+        ▶︎︎︎ filter: f filter(),
+        ▶︎︎︎ findIndex: f findIndex(),
+        ▶︎︎︎ forEach: f forEach(),
+        ▶︎︎︎ includes: f includes(),
+        ▶︎︎︎ indexOf: f indexOf(),
+        ▶︎︎︎ join: f join(),
+        ▶︎︎︎ keys: f keys(),
+        ▶︎︎︎ lastIndexOf: f lastIndexOf(),
+          length: 0,
+        ▶︎︎︎ map: f map(),
+        ▶︎︎︎ pop: f pop(),
+        ▶︎︎︎ push: f push(),
+        ▶︎︎︎ reduce: f reduce(),
+        ▶︎︎︎ reduceRight: f reduceRight(),
+        ▶︎︎︎ reverse: f reerse(),
+        ▶︎︎︎ shift: f shift(),
+        ▶︎︎︎ some: f some(),
+        ▶︎︎︎ sort: f sort(),
+        ▶︎︎︎ splice: f splice(),
+        ▶︎︎︎ toLocalString: f toLocalString(),
+        ▶︎︎︎ toString: f toString(),
+        ▶︎︎︎ unshift: f unshift(),
+        ▶︎︎︎ values: f values(),
+        ▶︎︎︎ Symbol(Symbol.iterator): f values(),
+        ▶︎︎︎ Symbol(Symbol.unscopables): {copyWithin: true, etries: true, fill: true, findIndex: true, ...}
+        ▶︎︎︎ __proto__: Object
+      }
+  }
+*/
+
+
+
+var className_ele = document.getElementsByClassName('wrap-tab');
+console.log( className_ele );
+/*
+HTMLCollection(2) [div.wrap-tab.tab-test1, div.wrap-tab.tab-test2]
+  {
+    ▶︎︎︎ 0: div.wrap-tab.tab-test1,
+    ▶︎︎︎ 1: div.wrap-tab.tab-test2,
+      length: 2,
+    ▼ __proto__: HTMLCollection
+      {
+        ▶ item: f item(),
+          length: (...),
+        ▶ ︎︎namedItem: f namedItem(),
+        ▶︎ costructor: f HTMLCollection(),
+        ▶ ︎Symbol(Symbol.iterator): f values(),
+          Symbol(Symbol.toStringTag): "HTMLCollection",
+        ▶︎ get length: f (),
+        ▶︎︎︎ __proto__: Object
+      }
+  }
+*/
+//
+for ( var i in className_ele) {
+  console.log( i );
+  /*
+    출력결과
+      0
+      1
+      length
+      item
+      namedItem
+  */
+}
+
+// Array로 변환
+console.log( Array.prototype.slice.call(className_ele) );
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'/>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="./reset.css" rel="stylesheet">
+<style>
+  .wrap-tab {width: 400px; margin: 0 auto;}
+  .tab-menu { font-size: 0; }
+  .item { display: inline-block; width: 25%; font-size: 14px; }
+  .link { display: block; width: 100%; padding: 10px; border: 1px solid #ccc; text-align: center;}
+  .wrap-tab[data-active-index] .tab-content { display: none; }
+
+  .wrap-tab[data-active-index="0"] .item[data-index="0"],
+  .wrap-tab[data-active-index="1"] .item[data-index="1"],
+  .wrap-tab[data-active-index="2"] .item[data-index="2"],
+  .wrap-tab[data-active-index="3"] .item[data-index="3"] { 
+    background-color: gold;
+  }
+  .wrap-tab[data-active-index="0"] .tab-content[data-index="0"],
+  .wrap-tab[data-active-index="1"] .tab-content[data-index="1"],
+  .wrap-tab[data-active-index="2"] .tab-content[data-index="2"],
+  .wrap-tab[data-active-index="3"] .tab-content[data-index="3"] { 
+    display: block; 
+  }
+</style>
+</head>
+<body>
+  <h1>TAB</h1>
+  <div class="wrap-tab tab-test1">
+    <ul class="tab-menu">
+      <li class="item"><a href="#contentID01" class="link">tab menu1</a></li>
+      <li class="item"><a href="#contentID02" class="link">tab menu2</a></li>
+      <li class="item"><a href="#contentID03" class="link">tab menu3</a></li>
+      <li class="item"><a href="#contentID04" class="link">tab menu4</a></li>
+    </ul>
+    <div class="wrap-content">
+      <div class="tab-content" id="contentID01">
+        <h2>content01 menu</h2>
+        <p>content01</p>
+      </div>
+      <div class="tab-content" id="contentID02">
+        <h2>content02 menu</h2>
+        <p>content02</p>
+      </div>
+      <div class="tab-content" id="contentID03">
+        <h2>content03 menu</h2>
+        <p>content03</p>
+      </div>
+      <div class="tab-content" id="contentID04">
+        <h2>content04 menu</h2>
+        <p>content04</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap-tab tab-test2">
+    <ul class="tab-menu">
+      <li class="item"><a href="#contentID01" class="link">tab menu1</a></li>
+      <li class="item"><a href="#contentID02" class="link">tab menu2</a></li>
+      <li class="item"><a href="#contentID03" class="link">tab menu3</a></li>
+      <li class="item"><a href="#contentID04" class="link">tab menu4</a></li>
+    </ul>
+    <div class="wrap-content">
+      <div class="tab-content" id="contentID01">
+        <h2>content01 menu</h2>
+        <p>content01</p>
+      </div>
+      <div class="tab-content" id="contentID02">
+        <h2>content02 menu</h2>
+        <p>content02</p>
+      </div>
+      <div class="tab-content" id="contentID03">
+        <h2>content03 menu</h2>
+        <p>content03</p>
+      </div>
+      <div class="tab-content" id="contentID04">
+        <h2>content04 menu</h2>
+        <p>content04</p>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+  var tab = function (tabClass, activeIndex) {
+    var active_index = activeIndex || 0,
+        prev_index = activeIndex,
+        wrap_tab = document.querySelector(tabClass),
+        tab_menu = wrap_tab.querySelector('.tab-menu'),
+        items = tab_menu.querySelectorAll('.item'),
+        contents = wrap_tab.querySelectorAll('.tab-content');
+
+    // 초기 data attribute 설정
+    wrap_tab.setAttribute('data-active-index', active_index);
+    for (var i=0, max = items.length; i< max; i++ ) {
+      items[i].setAttribute('data-index', i);
+      contents[i].setAttribute('data-index', i);
+    };
+    
+    // 메뉴 클릭시 이벤트
+    tab_menu.onclick = function(e){
+      var ele = e.target;
+      if ( ele.className === 'link' ) {
+        e.preventDefault();
+
+        var current_index = ele.parentElement.getAttribute('data-index');
+        if ( current_index != prev_index ) {
+          wrap_tab.setAttribute('data-active-index', current_index);
+          prev_index = current_index;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+  }
+  tab('.tab-test1', 0);
+  tab('.tab-test2', 2);
+
+  </script>
+</body>
+</html>

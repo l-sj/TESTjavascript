@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'/>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="./reset.css" rel="stylesheet">
+<style>
+
+</style>
+</head>
+<body>
+
+  <script>
+/*
+  var Tab = function () {
+    console.log('tab');
+  }
+  var tab01 = new Tab();
+  console.log( new Tab() );
+
+  출력화면
+    tab
+    tab
+    Tab {
+      __proto__: {
+        constructor: f () {
+          argument: null
+          caller:  null
+          length: 0
+          name: "Tab"
+          prototype: { constructor: f}
+          __proto__: f()
+          [[FunctionLocation]]:tab-case2-new.html:90
+          [[Scope]]: Scope[1]
+        }
+        __proto__: {
+          constructor: f Object()
+          hasOwnProperty: f hasOwnProperty()
+          isPrototypeOf: f isPrototypeOf()
+          propertyIsEnumerable: f propertyIsEnumerable()
+          toLocalString: f toLocalString()
+          toString: f toString()
+          valueOf: f toString()
+          __defineGetter__: f __defineGetter__()
+          __defineSetter__: f __defineSetter__()
+          __lookupGetter__: f __lookupGetter__()
+          __lookupSetter__: f __lookupSetter__()
+          get __proto__: f __proto__()
+          set __proto__: f __protp__()
+        }
+      }
+    }
+*/
+
+
+
+var Tab = function () {
+  var that = this;
+  console.log('tab');
+}
+console.log( Tab.prototype.constructor === Tab );
+
+Tab.prototype = {
+  //constructor: Tab.prototype.constructor,
+  constructor: Tab,
+  TTt: 'g',
+}
+console.log( Tab.prototype.constructor === Tab );
+var tab01 = new Tab();
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'/>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+<script>
+  var Afunc = function(name){
+    var that = this;
+    this.name = name || '길동';
+  }
+  Afunc.prototype = {
+    //constructor: Afunc,
+    testMethod1: function( fName ){
+      name = fName || this.name;
+      console.log( name );
+    }
+  };
+  Afunc.prototype.constructor = Afunc;
+  var a_func = new Afunc();
+  a_func.testMethod1('길자');
+  console.log( Afunc.prototype.constructor );
+
+
+  var Bfunc = function(name, phone){
+    Afunc.apply(this, arguments);
+    this.phone = phone || '010';
+  }
+  Bfunc.prototype = Object.create( Afunc.prototype );
+  Bfunc.prototype.constructor = Bfunc;
+  var b_func = new Bfunc();
+  b_func.testMethod1();
+  console.log( Bfunc.prototype );
+  
+</script>
+</body>
+</html>
