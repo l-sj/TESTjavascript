@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'/>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="./reset.css" rel="stylesheet">
+<style>
+  .box-test {
+    width: 100px;
+    height: 100px;
+    background-color: gold;
+  }
+
+  .box-color {
+    background-color: blue;
+  }
+</style>
+</head>
+<body>
+  <h1>class add / class remove</h1>
+  
+  <div class="box-test">test box1</div>
+  <button type="button" class="btn-add">class 추가</button>
+  <button type="button" class="btn-remove">class 삭제</button>
+
+  <script>
+// class 추가
+var addClass = function (eleSelector, classText) {
+  var get_class = eleSelector.getAttribute('class'),
+      class_arr = get_class.split(' '),
+      class_set = null; 
+
+  if( class_arr.indexOf(classText) === -1 ) {
+    class_arr = class_arr.concat(classText);
+    class_set = class_arr.join(' ');
+    class_set = class_set.replace('/,/g', '');
+    eleSelector.setAttribute('class', class_set);
+  }
+};
+
+// class 삭제
+var removeClass = function (eleSelector, classText) {
+  var get_class = eleSelector.getAttribute('class'),
+    class_arr = get_class.split(' '),
+    class_set = null;
+    
+  if ( class_arr.indexOf(classText) != -1 ) {
+    for(var i=0, max=class_arr.length; i< max; i++) {
+      if( class_arr[i] === classText ) {
+        class_arr.splice(i, 1);
+      }
+    }
+    class_set = class_arr.join(' ');
+    class_set = class_set.replace('/,/g', '');
+    eleSelector.setAttribute('class', class_set);
+  }
+};
+
+var header_ele = document.querySelector('.box-test');
+//
+document.querySelector('.btn-add').onclick = function(){
+  addClass(header_ele, 'box-color');
+};
+
+//
+document.querySelector('.btn-remove').addEventListener('click', function(){
+  removeClass(header_ele, 'box-color');
+});
+
+  </script>
+</body>
+</html>

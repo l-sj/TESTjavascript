@@ -26,6 +26,7 @@
   <div class="box-test">test box1</div>
   <button type="button" class="btn-add">class 추가</button>
   <button type="button" class="btn-remove">class 삭제</button>
+  <button type="button" class="btn-toggle">class 추가/삭제</button>
 
   <script>
 // class 추가, 삭제
@@ -82,6 +83,11 @@ document.querySelector('.btn-add').onclick = function(){
 //
 document.querySelector('.btn-remove').addEventListener('click', function(){
   classAddRemove(header_ele, 'box-color', 'remove');
+});
+
+// 
+document.querySelector('.btn-toggle').addEventListener('click', function(){
+  classAddRemove(header_ele, 'box-color');
 });
 
 /*
